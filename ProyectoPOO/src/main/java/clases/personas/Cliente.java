@@ -5,16 +5,19 @@
 package clases.personas;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author Angello Bravo
  */
 public class Cliente extends Persona{
+    //Variables
+    Scanner sc = new Scanner(System.in);
     
     //Atributos
     private String datos;
-    public static ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+    public static ArrayList<Cliente> listaClientes = new ArrayList<>();
     
     //Constructor
     public Cliente(String datos, String cedula, String nombre, String telef, String email) {
@@ -31,6 +34,16 @@ public class Cliente extends Persona{
     public void setDatos(String datos) {
         this.datos = datos;
     }
+    
+    
+    //Metodos
+    //Metodo toString que presentara la informacion de los clientes.
+    @Override
+    public String toString(){
+        String presentacion = super.getCedula() + " - " + super.getNombre() + " - " + super.getTelef() + " - " + super.getEmail() + " - " + getDatos();
+        return presentacion;
+    }
+    
     
     
     

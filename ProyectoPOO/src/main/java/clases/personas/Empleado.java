@@ -32,4 +32,17 @@ public class Empleado extends Persona {
         this.estado = estado;
     }
     
+    //Metodos
+    
+    @Override
+    public String toString(){
+        String info = "";
+        if(isEstado()){
+            info = super.getCedula() +" - "+ super.getNombre() +" - "+ super.getTelef() +" - "+ super.getEmail();
+        }
+        return info;
+    }
+    
+    
+    
 }

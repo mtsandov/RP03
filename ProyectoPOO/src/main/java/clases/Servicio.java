@@ -16,7 +16,7 @@ public class Servicio {
     private float duracion;
     private float precio;
     private boolean estado;
-    public static ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
+    public static ArrayList<Servicio> listaServicios = new ArrayList<>();
     
     //Constructor
     public Servicio(String tipo, float duracion, float precio, boolean estado) {
@@ -60,5 +60,15 @@ public class Servicio {
         this.estado = estado;
     }
     
+    //Metodos
+    
+    @Override
+    public String toString(){
+        String info = "";
+        if(estado){
+            info = getTipo() + " - " + getDuracion() + " - " + getPrecio();
+        }
+        return info;
+    }
     
 }

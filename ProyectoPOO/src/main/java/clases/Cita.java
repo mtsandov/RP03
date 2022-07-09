@@ -20,7 +20,8 @@ public class Cita {
     private Time hora;
     private Cliente cliente;
     private Empleado empleado;
-    public static ArrayList<Cita> listaCitas = new ArrayList<Cita>();
+    private boolean estado;
+    public static ArrayList<Cita> listaCitas = new ArrayList<>();
     
     //Constructor
     public Cita(Date fecha, Time hora, Cliente cliente, Empleado empleado) {
@@ -28,6 +29,7 @@ public class Cita {
         this.hora = hora;
         this.cliente = cliente;
         this.empleado = empleado;
+        estado = true;
     }
     
     //Getters
@@ -46,6 +48,11 @@ public class Cita {
     public Empleado getEmpleado() {
         return empleado;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+    
     
     //Setters
     public void setFecha(Date fecha) {
@@ -63,6 +70,16 @@ public class Cita {
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+    @Override
+    public String toString(){
+        return getCliente().getCedula() + " - " + getCliente().getNombre() + " | " + "Empleado: " + getEmpleado().getNombre() + " - " + getFecha() + " - " + getHora(); 
+    }
+    
     
     
     
