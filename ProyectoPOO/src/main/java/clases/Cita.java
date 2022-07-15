@@ -16,29 +16,25 @@ import java.util.Date;
  */
 public class Cita {
     //Atributos
-    private Date fecha;
-    private Time hora;
+    private Date fecha; //Dentro del objeto ya viene incluida la hora.
     private Cliente cliente;
+    private Servicio servicio;
     private Empleado empleado;
     private boolean estado;
     public static ArrayList<Cita> listaCitas = new ArrayList<>();
     
     //Constructor
-    public Cita(Date fecha, Time hora, Cliente cliente, Empleado empleado) {
+    public Cita(Date fecha, Cliente cliente, Empleado empleado, Servicio servicio) {
         this.fecha = fecha;
-        this.hora = hora;
         this.cliente = cliente;
         this.empleado = empleado;
+        this.servicio = servicio;
         estado = true;
     }
     
     //Getters
     public Date getFecha() {
         return fecha;
-    }
-
-    public Time getHora() {
-        return hora;
     }
 
     public Cliente getCliente() {
@@ -48,6 +44,11 @@ public class Cita {
     public Empleado getEmpleado() {
         return empleado;
     }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+    
 
     public boolean isEstado() {
         return estado;
@@ -59,10 +60,6 @@ public class Cita {
         this.fecha = fecha;
     }
 
-    public void setHora(Time hora) {
-        this.hora = hora;
-    }
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
@@ -71,13 +68,18 @@ public class Cita {
         this.empleado = empleado;
     }
 
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+    
+
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
     
     @Override
     public String toString(){
-        return getCliente().getCedula() + " - " + getCliente().getNombre() + " | " + "Empleado: " + getEmpleado().getNombre() + " - " + getFecha() + " - " + getHora(); 
+        return getCliente().getCedula() + " - " + getCliente().getNombre() + " - " + getServicio().getTipo() + " | " + "Empleado: " + getEmpleado().getNombre() + " - " + getFecha(); 
     }
     
     

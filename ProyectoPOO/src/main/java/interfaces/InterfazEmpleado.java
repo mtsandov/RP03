@@ -14,6 +14,15 @@ import java.util.Scanner;
 public class InterfazEmpleado {
     Scanner sc = new Scanner(System.in);
     
+    //Metodo que muestra todos los empleados.
+    public static void mostrarEmpleados(){
+        for(Empleado emp: Empleado.listaEmpleados){
+            if(emp.isEstado()){
+                System.out.println((Empleado.listaEmpleados.indexOf(emp)+1) + ". " + emp.toString());
+            }
+        }
+    }
+    
     //Interfaz Principal de los Empleados
     public void mostrarInterfazEmpleado(){
         int opcion = 0;
@@ -21,11 +30,7 @@ public class InterfazEmpleado {
             
             //Muestra a todos los empleados activos
             System.out.println("\tEmpleados");
-            for(Empleado emp: Empleado.listaEmpleados){
-                if(emp.isEstado()){
-                    System.out.println((Empleado.listaEmpleados.indexOf(emp)+1) + ". " + emp.toString());
-                }
-            }
+            mostrarEmpleados();
             
             System.out.println("\nQue desea realizar: ");
             System.out.println("1. Agregar un nuevo Empleado");
@@ -78,10 +83,10 @@ public class InterfazEmpleado {
         System.out.print("2. Ingrese el nombre completo: ");
         String nombre = sc.nextLine();
         
-        System.out.println("3. Ingrese el numero de telef");
+        System.out.print("3. Ingrese el numero de telef");
         String telef = sc.nextLine();
         
-        System.out.println("4. Ingrese el email: ");
+        System.out.print("4. Ingrese el email: ");
         String email = sc.nextLine();
         
         Empleado nuevoEmp = new Empleado(true, ced, nombre, telef, email);
@@ -91,7 +96,7 @@ public class InterfazEmpleado {
     //Metodo editarEmpleado
     public void editarEmpleado(Empleado emp){
         int opcion = 0;
-        while(opcion != 4){
+        while(opcion != 3){
             System.out.println("Editar al empleado: " + emp.getNombre() );
             System.out.println("1. Nombre");
             System.out.println("2. Telefono");
@@ -100,6 +105,7 @@ public class InterfazEmpleado {
             
             System.out.print("\nQue desea editar: ");
             opcion = sc.nextInt();
+            sc.nextLine();
             
             switch (opcion) {
                 case 1 -> {
@@ -113,7 +119,7 @@ public class InterfazEmpleado {
                     emp.setTelef(t);
                 }
                 case 3 -> {
-                    System.out.println("Ingrese el nuevo email: ");
+                    System.out.print("Ingrese el nuevo email: ");
                     String e = sc.nextLine();
                     emp.setEmail(e);
                 }

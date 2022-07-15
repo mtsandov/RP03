@@ -40,8 +40,7 @@ public class Cliente extends Persona{
     //Metodo toString que presentara la informacion de los clientes.
     @Override
     public String toString(){
-        String presentacion = super.getCedula() + " - " + super.getNombre() + " - " + super.getTelef() + " - " + super.getEmail() + " - " + getDatos();
-        return presentacion;
+        return super.toString() + " - " + getDatos();
     }
     
     

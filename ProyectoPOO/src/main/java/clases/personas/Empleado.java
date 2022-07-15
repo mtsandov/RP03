@@ -38,7 +38,7 @@ public class Empleado extends Persona {
     public String toString(){
         String info = "";
         if(isEstado()){
-            info = super.getCedula() +" - "+ super.getNombre() +" - "+ super.getTelef() +" - "+ super.getEmail();
+            info = super.toString();
         }
         return info;
     }

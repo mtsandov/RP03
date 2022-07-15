@@ -14,15 +14,20 @@ import java.util.Scanner;
 public class InterfazServicio {
     Scanner sc = new Scanner(System.in);
     
+    public static void mostrarServicios(){
+        for(Servicio s: Servicio.listaServicios){
+            if(s.isEstado()){
+                System.out.println((Servicio.listaServicios.indexOf(s)+1) + ". " + s.toString());
+            }
+        }
+    }
+    
     public void mostrarInterfazServicio(){
         int opcion = 0;
         
         while(opcion != 4){
             System.out.println("\tServicios");
-            
-            for(Servicio s: Servicio.listaServicios){
-                System.out.println((Servicio.listaServicios.indexOf(s)+1) + ". " + s.toString());
-            }
+            mostrarServicios();
             
             System.out.println("\nQue desea realizar: ");
             System.out.println("1. Agregar un nuevo Servicio");
@@ -35,10 +40,8 @@ public class InterfazServicio {
             sc.nextLine();
             
             switch (opcion) {
-                case 1:
-                    agregarServicio();
-                    break;
-                case 2:
+                case 1 -> agregarServicio();
+                case 2 -> {
                     System.out.println("Editar Servicio");
                     System.out.print("Seleccione el Servicio que quiere editar: ");
                     int servicio = sc.nextInt();
@@ -50,15 +53,13 @@ public class InterfazServicio {
                     else{
                         System.out.println("Servicio no encontrado");
                     }
-                    
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("Eliminar Servicio");
                     System.out.print("Seleccione el Servicio que quiere eliminar: ");
-                    servicio = sc.nextInt();
+                    int servicio = sc.nextInt();
                     sc.nextLine();
-                    
-                    if(servicio<= Servicio.listaServicios.size()){
+                    if(servicio<= Servicio.listaServicios.size() && 1<= Servicio.listaServicios.size()){
                         System.out.println( Servicio.listaServicios.get(servicio-1).getTipo() + " eliminado");
                         eliminarServicio(Servicio.listaServicios.get(servicio-1));
                     }
@@ -66,10 +67,9 @@ public class InterfazServicio {
                     else{
                         System.out.println("Servicio no encontrado.");
                     }
-                    
-                    break;
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
             
             
@@ -98,7 +98,7 @@ public class InterfazServicio {
     public void editarServicio(Servicio s){
         int opcion = 0;
         
-        while(opcion != 4){
+        while(opcion !=4){
             System.out.println("Editar Servicio: " + s.getTipo());
             System.out.println("1. Tipo");
             System.out.println("2. Duracion");
@@ -107,6 +107,7 @@ public class InterfazServicio {
             
             System.out.print("Seleccione un parametro que quiere editar: ");
             opcion = sc.nextInt();
+            sc.nextLine();
             
             switch (opcion) {
                 case 1 -> {

@@ -55,6 +55,8 @@ public abstract class Persona {
         this.email = email;
     }
     
-    
+    public String toString(){
+        return getCedula() +" - "+ getNombre() +" - "+ getTelef() +" - "+ getEmail();
+    }
     
 }

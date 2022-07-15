@@ -14,6 +14,13 @@ import java.util.Scanner;
 public class InterfazCliente {
     Scanner sc = new Scanner(System.in);
     
+    //Metodo que mostrara a todos los clientes
+    public static void mostrarClientes(){
+        for(Cliente cl: Cliente.listaClientes){
+            System.out.println((Cliente.listaClientes.indexOf(cl)+1) + ". " + cl.toString());
+        }
+    }
+    
     public void mostrarInterfazClientes(){
         int opcion = 0;
         
@@ -21,9 +28,7 @@ public class InterfazCliente {
             
             //Lista de CLientes
             System.out.println("\tClientes:");
-            for(Cliente cl: Cliente.listaClientes){
-                System.out.println((Cliente.listaClientes.indexOf(cl)+1) + ". " + cl.toString());
-            }
+            mostrarClientes();
             
             System.out.println("\nQue desea realizar:");
             System.out.println("1. Agregar un nuevo cliente.");
@@ -44,7 +49,7 @@ public class InterfazCliente {
                 int seleccion = sc.nextInt();
                 sc.nextLine();
                 
-                if(seleccion <= Cliente.listaClientes.size()){
+                if(seleccion <= Cliente.listaClientes.size() && 1<=seleccion){
                     editarCliente(Cliente.listaClientes.get(seleccion-1));
                 }
                 

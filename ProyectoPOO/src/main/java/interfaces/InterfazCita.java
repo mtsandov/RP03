@@ -5,7 +5,11 @@
 package interfaces;
 
 import clases.Cita;
+import clases.Servicio;
 import clases.personas.Cliente;
+import clases.personas.Empleado;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -18,11 +22,11 @@ public class InterfazCita {
     //Interfaz principal de las Citas
     public void mostrarInterfazCita(){
         int opcion = 0;
-        while(opcion != 4){
+        while(opcion!=4){
             
             System.out.println("\tCitas");
             
-            System.out.println("\nQue desea realizar: ");
+            System.out.println("Que desea realizar: ");
             System.out.println("1. Crear una Cita");
             System.out.println("2. Eliminar una Cita");
             System.out.println("3. Consultar una Cita");
@@ -32,42 +36,79 @@ public class InterfazCita {
             opcion = sc.nextInt();
             sc.nextLine();
             
-            if(opcion == 1){
-                System.out.println("Crear Cita");
+            switch (opcion) {
+                case 1 -> crearCita();
+                case 2 -> eliminarCita();
+                case 3 -> consultarCitas();
+                case 4 -> System.out.println("");
+                default -> System.out.println("Opcion Invalida");
             }
-            
-            else if(opcion == 2){
-                eliminarCita();
-            }
-            
-            else if(opcion == 3){
-                System.out.println("Consultar una cita");
-            }
-            
-            else{
-                System.out.println("Opcion Invalida");
-            }
-             
         }
     }
     
-    public void crearCita(){ //Falta COmpletar
+    public void crearCita(){
         System.out.println("\tCrear Cita");
         
+        //Ingreso de Cliente
+        System.out.println("Seleccion de Cliente.");
+        InterfazCliente.mostrarClientes();
+        System.out.print("Seleccione un cliente: ");
+        int seleccion = sc.nextInt();
+        sc.nextLine();
+        Cliente cl = Cliente.listaClientes.get(seleccion-1);
+        
+        //Ingreso del Servicio
+        System.out.println("Seleccion de Servicio");
+        InterfazServicio.mostrarServicios();
+        System.out.print("Seleccione el servicio: ");
+        seleccion = sc.nextInt();
+        sc.nextLine();
+        Servicio ser = Servicio.listaServicios.get(seleccion-1);
+        
+        //Ingreso de empleado
+        System.out.println("Seleccion de Empleados.");
+        InterfazEmpleado.mostrarEmpleados();
+        System.out.print("Seleccione el empleado: ");
+        seleccion = sc.nextInt();
+        sc.nextLine();
+        Empleado emp = Empleado.listaEmpleados.get(seleccion-1);
+        
+        //Ingreso de la fecha.
         System.out.println("Digite la fecha de la cita: ");
-        System.out.print("Digite el mes: ");
-        int mes = sc.nextInt();
+        System.out.print("Digite el anio de la nueva cita: ");
+        int anio = sc.nextInt();
         sc.nextLine();
         
-        System.out.println("Digite el dia: ");
+        System.out.print("Digite el mes: ");
+        String mes = sc.nextLine();
+        
+        System.out.print("Digite el dia: ");
         int dia = sc.nextInt();
         sc.nextLine();
         
-        System.out.println("Digite la hora: ");
+        System.out.print("Digite la hora: ");
         int hora = sc.nextInt();
-        System.out.println("Digite los minutos");
+        System.out.print("Digite los minutos: ");
         int min = sc.nextInt();
         
+        if(InterfazAtencion.validarFecha(mes, dia, anio) && 0<=hora && hora<24 && 0<=min && min<=60){
+            int indiceMes = InterfazAtencion.buscarMes(mes);
+            Date fecha = new Date(anio-1900, indiceMes, dia, hora, min);
+            for(int i=0; i<Cita.listaCitas.size();i++){
+                Cita cita = Cita.listaCitas.get(i);
+                
+                if(!cita.getFecha().equals(fecha) || !cita.getEmpleado().equals(emp) ){
+                    Cita nCita = new Cita(fecha, cl, emp, ser);
+                    Cita.listaCitas.add(nCita);
+                    System.out.println("Se ha creado la cita correctamente");
+                    i = Cita.listaCitas.size();
+                }
+            }
+        }
+        
+        else{
+            System.out.println("Datos Incorrectos.");
+        }
         
     }   
     
@@ -76,31 +117,79 @@ public class InterfazCita {
         System.out.print("Ingrese la cedula de un cliente: ");
         String cedula = sc.nextLine();
         
-        int contador = visualizarCitaPorCedula(cedula);
-        System.out.print("Seleccione que cita desea eliminar: ");
-        int opcion = sc.nextInt();
+        ArrayList<Cita> citasFiltradas = filtrarCitas(cedula);
         
-        if(opcion <= contador){ //Falta completar esta funcion
-           
-            
+        if(citasFiltradas.isEmpty()){
+            System.out.println("Citas no Encontradas");
         }
+        
+        else{
+            System.out.print("Seleccione que cita desea eliminar: ");
+            int opcion = sc.nextInt();
+            sc.nextLine();
+            
+            if(opcion <= citasFiltradas.size() && 0<=opcion){
+                int indice = Cita.listaCitas.indexOf(citasFiltradas.get(opcion-1));
+                
+                Cita.listaCitas.get(indice).setEstado(false);
+                System.out.println("Se ha eliminado correctamente");
+            }
+            else{
+                System.out.println("Opcion invalida");
+            }
+        }
+        
     }
     
-    //Metodo visualizarCitasPorCedula es para filtrar las citas por cedula
-    public int visualizarCitaPorCedula(String cedula){
-        int contador = 0;
+    //Metodo para consultar las citas
+    public void consultarCitas(){
+        System.out.println("\tConsultar Citas");
+        System.out.println("Ingrese una fecha a buscar: ");
+        //Recoge el anio
+        System.out.print("Ingrese el año: ");
+        int anio = sc.nextInt();
+        sc.nextLine();
+        //Recoge el mes
+        System.out.print("Ingrese el mes: ");
+        String mes = sc.nextLine();
         
+        //Recoge el dia
+        System.out.print("Ingrese el dia: ");
+        int dia = sc.nextInt();
+        sc.nextLine();
+        
+        if(InterfazAtencion.validarFecha(mes, dia, anio)){
+            int contador = 0;
+            for(Cita c: Cita.listaCitas){
+                Date fecha = c.getFecha();
+                if(fecha.getYear() == anio-1900 && fecha.getMonth() == InterfazAtencion.buscarMes(mes) && fecha.getDate() == dia && c.isEstado()){
+                    contador++;
+                    System.out.println((Cita.listaCitas.indexOf(c)+1) + ". " + c.toString());
+                }
+            }
+        }
+        
+    }
+    
+    //Filtra las citas de la cedula ingresada y retorna un arraylist con ellas.
+    public ArrayList<Cita> filtrarCitas(String cedula){
+        int contador = 0;
+        ArrayList<Cita> citasFiltradas = new ArrayList<>();
+        System.out.println("Citas de: " + cedula);
         for(Cita c: Cita.listaCitas){
             Cliente cl = c.getCliente();
             
             if(cedula.equals(cl.getCedula())){
                 contador +=1;
-                System.out.println("Citas de " + cl.getNombre());
                 System.out.println(contador + ". " + c.toString());
+                citasFiltradas.add(c);
+                
             }
            
         }
-        return contador;
+        return citasFiltradas;
     }
     
+    
+
 }
