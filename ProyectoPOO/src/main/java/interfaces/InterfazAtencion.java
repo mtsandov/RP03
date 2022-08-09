@@ -48,11 +48,14 @@ public class InterfazAtencion {
     
     //Metodo que validara si una fecha ingresada es valida.
     public static boolean validarFecha(String mes, int dia, int anio){
+        
+        mes = StringUtils.lowerCase(mes);
+        
         //Booleanos que nos serviran para manejar el ingreso de dias con respecto a los meses
         boolean diaIgual31 = meses[0].equals(mes) || meses[2].equals(mes) || meses[4].equals(mes) || meses[6].equals(mes) || meses[7].equals(mes) || meses[9].equals(mes) || meses[11].equals(mes);
         boolean diaMenor31 = meses[1].equals(mes) || meses[3].equals(mes) || meses[5].equals(mes) || meses[8].equals(mes) || meses[10].equals(mes);
         
-        mes = StringUtils.lowerCase(mes);
+        
         
         return ArrayUtils.contains(meses, mes) && 1<=dia && ((diaIgual31 && dia<=31) || (diaMenor31 && dia<31));
     }

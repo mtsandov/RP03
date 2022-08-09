@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="princ" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyecto2doparcial.PrimaryController">
+   <top>
+      <Label text="Sistema Clínica Fisioterapia" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btServicios" mnemonicParsing="false" onAction="#cambiarServicios" text="Servicios" />
+            <Button fx:id="btEmpleados" mnemonicParsing="false" onAction="#cambiarEmpleados" text="Empleados" />
+            <Button fx:id="btClientes" mnemonicParsing="false" onAction="#cambiarClientes" text="Clientes" />
+            <Button fx:id="btCitas" mnemonicParsing="false" onAction="#cambiarCitas" text="Citas" />
+            <Button fx:id="btAtenciones" mnemonicParsing="false" onAction="#cambiarAtenciones" text="Atenciones" />
+         </children>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>
