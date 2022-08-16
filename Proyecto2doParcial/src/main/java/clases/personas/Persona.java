@@ -4,11 +4,13 @@
  */
 package clases.personas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Angello Bravo
  */
-public abstract class Persona {
+public abstract class Persona implements Serializable{
     //Atributos
     private String cedula;
     private String nombre;
@@ -56,7 +58,7 @@ public abstract class Persona {
     }
     
     public String toString(){
-        return getCedula() +" - "+ getNombre() +" - "+ getTelef() +" - "+ getEmail();
+        return getNombre();
     }
     
 }

@@ -4,9 +4,11 @@
  */
 package clases;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -14,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Angello Bravo
  */
-public class Servicio {
+public class Servicio implements Serializable{
     //Atributos
     private String tipo;
     private float duracion;
@@ -68,32 +70,25 @@ public class Servicio {
     
     @Override
     public String toString(){
-        String info = "";
-        if(estado){
-            info = getTipo() + " - " + getDuracion() + " - " + getPrecio();
-        }
-        return info;
+        return this.getTipo();
     }
     
     public static ArrayList<Servicio> cargarServicios(String ruta){
-        ArrayList<Servicio> serviciosCargados = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new FileReader(ruta))){
-            String line;
-            while((line = bf.readLine()) != null){
-                String[] datos = line.split(";");
-                Servicio s = new Servicio(datos[0], Float.parseFloat(datos[1]), Float.parseFloat(datos[2]), Boolean.parseBoolean(datos[3]));
-                serviciosCargados.add(s);
-            }
-            
+        ArrayList<Servicio> lista = new ArrayList<>();
+        try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(ruta))){
+            lista = (ArrayList<Servicio>)input.readObject();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Archivo no encontrado");
         }
         catch(IOException e){
-            System.out.println("Archivo No Encontrado");
+            System.out.println(e.getMessage());
         }
-        catch(Exception ex){
-            System.out.println("Error al Procesar el Archivo");
+        catch(ClassNotFoundException e){
+            System.out.println("Clase no encontrada");
         }
         
-        return serviciosCargados;
+        return lista;
     }
     
 }

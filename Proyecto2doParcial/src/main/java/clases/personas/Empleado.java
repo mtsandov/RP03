@@ -6,8 +6,11 @@ package clases.personas;
 
 import clases.Servicio;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 /**
@@ -50,22 +53,19 @@ public class Empleado extends Persona {
     //Cargar arraylist de empleados
     public static ArrayList<Empleado> cargarEmpleados(String ruta){
         ArrayList<Empleado> lista = new ArrayList<>();
-        
-        try(BufferedReader bf = new BufferedReader(new FileReader(ruta))){
-            String line;
-            while((line = bf.readLine()) != null){
-                String[] datos = line.split(";");
-                Empleado em = new Empleado(Boolean.parseBoolean(datos[0]), datos[1], datos[2], datos[3],datos[4]);
-                lista.add(em);
-            }
-            
+        try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(ruta))){
+            lista = (ArrayList<Empleado>)input.readObject();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Archivo no encontrado");
         }
         catch(IOException e){
-            System.out.println("Archivo No Encontrado");
+            System.out.println(e.getMessage());
         }
-        catch(Exception ex){
-            System.out.println("Error al Procesar el Archivo");
+        catch(ClassNotFoundException e){
+            System.out.println("Clase no encontrada");
         }
+        
         return lista;
     }
     

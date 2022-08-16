@@ -13,9 +13,16 @@ import java.io.IOException;
  */
 public class App extends Application {
     
-    public static String pathServicios = "src/main/java/archivos/servicios.txt";
-    public static String pathEmpleados = "src/main/java/archivos/empleados.txt";
-    public static String pathClientes = "src/main/java/archivos/clientes.txt";
+    public static String pathServicios = "archivos/servicios.ser";
+    public static String pathEmpleados = "archivos/empleados.ser";
+    public static String pathClientes = "archivos/clientes.ser";
+    public static String pathCitas = "archivos/citas.ser";
+    
+    public static String pathFXMLClientes = "Clientes/clientes";
+    public static String pathFXMLEmpleados = "Empleados/empleados";
+    public static String pathFXMLServicios = "Servicios/servicios";
+    public static String pathFXMLCitas = "Citas/citas";
+    public static String pathFXMLAtenciones = "Atenciones/atenciones";
     
     private static Scene scene;
 
@@ -42,6 +49,10 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    public static void changeRoot(Parent noodRoot){
+        scene.setRoot(noodRoot);
     }
 
 }

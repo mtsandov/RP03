@@ -7,27 +7,27 @@ public class PrimaryController {
     
     @FXML
     private void cambiarServicios() throws IOException {
-        App.setRoot("servicios");
+        App.setRoot(App.pathFXMLServicios);
     }
     
     @FXML
     private void cambiarEmpleados() throws IOException{
-        App.setRoot("empleados");
+        App.setRoot(App.pathFXMLEmpleados);
     }
     
     @FXML
     private void cambiarClientes() throws IOException{
-        App.setRoot("clientes");
+        App.setRoot(App.pathFXMLClientes);
     }
     
     @FXML
     private void cambiarCitas() throws IOException{
-        App.setRoot("citas");
+        App.setRoot(App.pathFXMLCitas);
     }
     
     @FXML
     private void cambiarAtenciones() throws IOException{
-        App.setRoot("atenciones");
+        App.setRoot(App.pathFXMLCitas);
     }
     
 }

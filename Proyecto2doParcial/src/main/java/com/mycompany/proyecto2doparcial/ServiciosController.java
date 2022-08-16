@@ -64,10 +64,6 @@ public class ServiciosController implements Initializable{
     
     @FXML
     private void cambiarAgregarServicio() throws IOException{
-        App.setRoot("agregarServicio");
-    }
-    @FXML
-    private void regresar() throws IOException{
-        App.setRoot("servicios");
+        App.setRoot("Servicios/agregarServicio");
     }
 }

@@ -1,2 +1,0 @@
-Terapia de Lenguaje;100;30;true
-Terapia Psicopedagógica;260;50;true

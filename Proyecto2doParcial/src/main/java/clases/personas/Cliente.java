@@ -4,23 +4,21 @@
  */
 package clases.personas;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
  * @author Angello Bravo
  */
-public class Cliente extends Persona{
-    //Variables
-    Scanner sc = new Scanner(System.in);
+public class Cliente extends Persona implements Serializable{
     
     //Atributos
     private String datos;
-    public static ArrayList<Cliente> listaClientes = new ArrayList<>();
     
     //Constructor
     public Cliente(String datos, String cedula, String nombre, String telef, String email) {
@@ -43,31 +41,28 @@ public class Cliente extends Persona{
     //Metodo toString que presentara la informacion de los clientes.
     @Override
     public String toString(){
-        return super.toString() + " - " + getDatos();
+        return super.toString();
     }
     
     //Metodo que cargara los datos de los archivos.
     public static ArrayList<Cliente> cargarClientes(String ruta){
         ArrayList<Cliente> listaClientes = new ArrayList<>();
-        try(BufferedReader bf = new BufferedReader(new FileReader(ruta))){
-            String line;
-            while((line = bf.readLine()) != null){
-                String[] datos = line.split(";");
-                Cliente c = new Cliente(datos[0], datos[1], datos[2], datos[3], datos[4]);
-                listaClientes.add(c);
-            }
+        try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(ruta))){
+            listaClientes = (ArrayList<Cliente>)input.readObject();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Archivo no encontrado");
         }
         catch(IOException e){
-            System.out.println("Archivo No Encontrado");
+            System.out.println(e.getMessage());
         }
-        catch(Exception ex){
-            System.out.println("Error al procesar el archivo");
+        catch(ClassNotFoundException e){
+            System.out.println("Clase no encontrada");
         }
         
         return listaClientes;
         
     }
-    
-    
+   
     
 }

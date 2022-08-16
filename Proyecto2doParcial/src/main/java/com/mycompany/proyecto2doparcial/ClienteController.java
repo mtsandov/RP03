@@ -7,9 +7,7 @@ package com.mycompany.proyecto2doparcial;
 import clases.personas.Cliente;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,38 +40,30 @@ public class ClienteController implements Initializable{
     
     public ObservableList<Cliente> lista;
     
+    
     //Metodos
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lista = FXCollections.observableArrayList();
-        ArrayList<Cliente> listaClientes = Cliente.cargarClientes(App.pathClientes);
-        for(Cliente cl: listaClientes){
-            lista.add(cl);
-        }
+        colCedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colTelef.setCellValueFactory(new PropertyValueFactory<>("telef"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colDatos.setCellValueFactory(new PropertyValueFactory<>("datos"));
         
-        //Crear la Tabla
-        colCedula.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cedula"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
-        colTelef.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telef"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<Cliente, String>("email"));
-        colDatos.setCellValueFactory(new PropertyValueFactory<Cliente, String>("datos"));
+        tablaClientes.getItems().setAll(Cliente.cargarClientes(App.pathClientes));
         
-        tablaClientes.setItems(lista);
-        
-    }
-    
-    
-    @FXML
-    private void cambiarAgregar() throws IOException{
-        App.setRoot("agregarCliente");
     }
     
     @FXML
-    private void regresar() throws IOException{
-        App.setRoot("clientes");
+    private void agregarView() throws IOException{
+        App.setRoot("Clientes/agregarCliente");
     }
+    
     @FXML
     private void cambiarMain() throws IOException{
         App.setRoot("main");
     }
+    
+    
+    
 }

@@ -26,6 +26,7 @@
             <Button fx:id="btClientes" mnemonicParsing="false" onAction="#cambiarClientes" text="Clientes" />
             <Button fx:id="btCitas" mnemonicParsing="false" onAction="#cambiarCitas" text="Citas" />
             <Button fx:id="btAtenciones" mnemonicParsing="false" onAction="#cambiarAtenciones" text="Atenciones" />
+            <Button mnemonicParsing="false" text="Bingo" />
          </children>
          <padding>
             <Insets right="20.0" />

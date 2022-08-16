@@ -63,7 +63,7 @@ public class EmpleadoController implements Initializable{
     
     @FXML
     private void cambiarAgregar() throws IOException{
-        App.setRoot("agregarEmpleado");
+        App.setRoot("Empleados/agregarEmpleado");
     }
     
     @FXML
@@ -71,8 +71,4 @@ public class EmpleadoController implements Initializable{
         App.setRoot("main");
     }
     
-    @FXML
-    private void regresar() throws IOException{
-        App.setRoot("empleados");
-    }
 }
