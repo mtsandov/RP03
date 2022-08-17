@@ -27,7 +27,7 @@ public class PrimaryController {
     
     @FXML
     private void cambiarAtenciones() throws IOException{
-        App.setRoot(App.pathFXMLCitas);
+        App.setRoot(App.pathFXMLAtenciones);
     }
     
 }

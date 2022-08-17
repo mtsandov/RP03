@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyecto2doparcial.AgregarClienteController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane maxHeight="200.0" maxWidth="300.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -40,7 +40,7 @@
       </GridPane>
    </center>
    <top>
-      <Label text="Agregar un Nuevo Cliente" BorderPane.alignment="CENTER">
+      <Label fx:id="lbTitulo" text="Agregar un Nuevo Cliente" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

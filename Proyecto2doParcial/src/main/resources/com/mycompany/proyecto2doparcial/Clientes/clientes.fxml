@@ -25,7 +25,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#cambiarMain" text="Regresar" />
             <Button fx:id="btAgregar" mnemonicParsing="false" onAction="#agregarView" text="Agregar" />
-            <Button mnemonicParsing="false" text="Editar" />
+            <Button mnemonicParsing="false" onAction="#editarCliente" text="Editar" />
          </children>
       </HBox>
    </bottom>

@@ -5,17 +5,25 @@
 package com.mycompany.proyecto2doparcial;
 
 import clases.Servicio;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 /**
  *
  * @author Angello Bravo
@@ -64,6 +72,48 @@ public class ServiciosController implements Initializable{
     
     @FXML
     private void cambiarAgregarServicio() throws IOException{
-        App.setRoot("Servicios/agregarServicio");
+        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Servicios/agregarServicio.fxml"));
+        AgregarServicioController ct = new AgregarServicioController();
+        
+        fxml.setController(ct);
+        Parent root = (Parent)fxml.load();
+        App.changeRoot(root);
+    }
+    
+    @FXML
+    private void editarServicio() throws IOException{
+        Servicio s = (Servicio)tablaServicios.getSelectionModel().getSelectedItem();
+        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Servicios/agregarServicio.fxml"));
+        EditarServicioController ct = new EditarServicioController();
+        
+        fxml.setController(ct);
+        BorderPane root = (BorderPane) fxml.load();
+        ct.llenarCampos(s);
+        App.changeRoot(root);
+        
+    }
+    
+    @FXML
+    private void eliminarServicio() throws IOException{
+        ArrayList<Servicio> lista = Servicio.cargarServicios(App.pathServicios);
+        Servicio s = (Servicio) tablaServicios.getSelectionModel().getSelectedItem();
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setContentText("Seguro que deseas eliminar a: " + s.getTipo());
+        Optional <ButtonType> bt = alerta.showAndWait();
+        
+        if(bt.get() == ButtonType.OK){
+            lista.remove(s);
+            
+            try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathServicios))){
+                out.writeObject(lista);
+                out.flush();
+                
+                Alert alerta1 = new Alert(Alert.AlertType.INFORMATION);
+                alerta1.setContentText("Se ha eliminado correctamente");
+                alerta1.showAndWait();
+            }
+            
+            
+        }
     }
 }

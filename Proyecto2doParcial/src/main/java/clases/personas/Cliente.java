@@ -37,12 +37,19 @@ public class Cliente extends Persona implements Serializable{
     }
     
     
+    
     //Metodos
     //Metodo toString que presentara la informacion de los clientes.
     @Override
     public String toString(){
         return super.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
     
     //Metodo que cargara los datos de los archivos.
     public static ArrayList<Cliente> cargarClientes(String ruta){

@@ -5,16 +5,23 @@
 package com.mycompany.proyecto2doparcial;
 
 import clases.personas.Cliente;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -56,7 +63,13 @@ public class ClienteController implements Initializable{
     
     @FXML
     private void agregarView() throws IOException{
-        App.setRoot("Clientes/agregarCliente");
+        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Clientes/agregarCliente.fxml"));
+        AgregarClienteController ct = new AgregarClienteController();
+        
+        fxml.setController(ct);
+        Parent root = (Parent) fxml.load();
+        
+        App.changeRoot(root);
     }
     
     @FXML
@@ -64,6 +77,19 @@ public class ClienteController implements Initializable{
         App.setRoot("main");
     }
     
-    
+    @FXML
+    private void editarCliente() throws IOException{
+        //Obtiene un cliente seleccionado de la tableview
+        Cliente cl = (Cliente)tablaClientes.getSelectionModel().getSelectedItem();
+        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Clientes/agregarCliente.fxml"));
+        EditarClienteController ct = new EditarClienteController();
+        
+        fxml.setController(ct);
+        BorderPane root = (BorderPane) fxml.load();
+        ct.llenarContenido(cl);
+        
+        App.changeRoot(root);
+    }
+
     
 }

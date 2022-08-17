@@ -27,7 +27,7 @@
       <HBox alignment="CENTER" onDragDetected="#regresar" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#regresar" text="Regresar" />
-            <Button mnemonicParsing="false" onAction="#empezarActividad" text="Empezar Actividad" />
+            <Button mnemonicParsing="false" text="Empezar Actividad" />
          </children>
       </HBox>
    </bottom>

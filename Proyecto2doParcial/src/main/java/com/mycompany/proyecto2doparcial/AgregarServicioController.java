@@ -38,7 +38,7 @@ public class AgregarServicioController implements Initializable, Serializable{
     
     @FXML
     private void regresar() throws IOException{
-        App.setRoot(App.pathFXMLEmpleados);
+        App.setRoot(App.pathFXMLServicios);
     }
     
     @FXML

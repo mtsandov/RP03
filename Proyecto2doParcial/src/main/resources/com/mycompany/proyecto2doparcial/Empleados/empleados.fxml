@@ -24,9 +24,9 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#cambiarMain" text="Regresar" />
-            <Button mnemonicParsing="false" onAction="#cambiarAgregar" text="Agregar" />
-            <Button mnemonicParsing="false" text="Editar" />
-            <Button mnemonicParsing="false" text="Eliminar" />
+            <Button mnemonicParsing="false" onAction="#agregarEmpleado" text="Agregar" />
+            <Button mnemonicParsing="false" onAction="#editarEmpleado" text="Editar" />
+            <Button mnemonicParsing="false" onAction="#eliminarEmpleado" text="Eliminar" />
          </children>
       </HBox>
    </bottom>

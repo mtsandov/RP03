@@ -5,6 +5,7 @@
 package clases.personas;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
@@ -60,5 +61,24 @@ public abstract class Persona implements Serializable{
     public String toString(){
         return getNombre();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Persona other = (Persona) obj;
+        if (!Objects.equals(this.cedula, other.cedula)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

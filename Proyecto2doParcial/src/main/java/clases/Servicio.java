@@ -4,12 +4,14 @@
  */
 package clases;
 
+import clases.personas.Persona;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -67,6 +69,26 @@ public class Servicio implements Serializable{
     }
     
     //Metodos
+
+    @Override
+    public boolean equals(Object obj) {
+         if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Servicio other = (Servicio) obj;
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     @Override
     public String toString(){

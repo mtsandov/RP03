@@ -46,14 +46,14 @@ public class RegistrarAtencionController {
         App.setRoot(App.pathFXMLCitas);
     }
     
-//    //Metodo encargado de cambiar a la pestania de la actividad.
-//    @FXML
-//    private void empezarActividad(Atencion at) throws IOException{
-//        
+    //Metodo encargado de cambiar a la pestania de la actividad.
+    @FXML
+    private void empezarActividad(Atencion at) throws IOException{
+        System.out.println("Hola :D");
 //        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Actividad/actividad.fxml"));
 //        ActividadController ct = new ActividadController();
 //        fxml.setController(ct);
 //        BorderPane root = (BorderPane)fxml.load();
 //        App.changeRoot(root);
-//    }
+    }
 }
