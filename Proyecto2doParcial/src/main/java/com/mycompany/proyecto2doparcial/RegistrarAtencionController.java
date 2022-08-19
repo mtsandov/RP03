@@ -28,10 +28,13 @@ public class RegistrarAtencionController {
     @FXML
     private Label lbFecha;
     @FXML
-    private TextField duracionReal;
+    private TextField txtDuracion;
     @FXML
     private ComboBox cbEmpleados;
     
+    //Atributo
+    public static Cita citaParaAtencion;
+   
     
     public void llenarCampos(Cita c){
         lbNombre.setText(c.getCliente().getNombre());
@@ -48,12 +51,18 @@ public class RegistrarAtencionController {
     
     //Metodo encargado de cambiar a la pestania de la actividad.
     @FXML
-    private void empezarActividad(Atencion at) throws IOException{
+    private void empezarActividad() throws IOException{
         System.out.println("Hola :D");
-//        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Actividad/actividad.fxml"));
-//        ActividadController ct = new ActividadController();
-//        fxml.setController(ct);
-//        BorderPane root = (BorderPane)fxml.load();
-//        App.changeRoot(root);
+        FXMLLoader fxml = new FXMLLoader(App.class.getResource("Actividad/actividad.fxml"));
+        ActividadController ct = new ActividadController();
+        fxml.setController(ct);
+        BorderPane root = (BorderPane)fxml.load();
+        
+        //Falta registrar las atenciones
+        Atencion t = new Atencion(citaParaAtencion.getServicio(),Integer.valueOf(txtDuracion.getText()),(Empleado) cbEmpleados.getValue(), citaParaAtencion);
+        
+        ct.llenarEspacios(t);
+        
+        App.changeRoot(root);
     }
 }

@@ -23,21 +23,26 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="lbNombre" text="Label">
+            <Label fx:id="lbNombre">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
             <HBox alignment="CENTER" maxHeight="60.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Label text="Label" />
+                  <Label text="Tiempo:" />
                   <Label fx:id="lbTiempo" text="Label" />
                </children></HBox>
+            <Label fx:id="lbNumero" text="Label">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </top>
    <center>
-      <GridPane alignment="CENTER" maxWidth="500.0" BorderPane.alignment="CENTER">
+      <GridPane fx:id="cuadricula" alignment="CENTER" maxWidth="500.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,11 +55,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button mnemonicParsing="false" onAction="#accion" text="Button" />
             <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
             <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="2" />
@@ -73,20 +77,7 @@
             <Button alignment="CENTER" mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
             <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-         </children>
-      </HBox>
-   </bottom>
 </BorderPane>

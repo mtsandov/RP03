@@ -60,6 +60,7 @@ public class CitaController implements Initializable{
         FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("Citas/registrarAtencion.fxml"));
         RegistrarAtencionController ct = new RegistrarAtencionController();
         
+        RegistrarAtencionController.citaParaAtencion = c;
         fxmlloader.setController(ct);
         BorderPane root = (BorderPane) fxmlloader.load();
         
