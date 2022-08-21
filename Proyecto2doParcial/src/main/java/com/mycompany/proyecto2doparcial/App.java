@@ -17,6 +17,8 @@ public class App extends Application {
     public static String pathEmpleados = "archivos/empleados.ser";
     public static String pathClientes = "archivos/clientes.ser";
     public static String pathCitas = "archivos/citas.ser";
+    public static String pathActividades = "archivos/actividades.txt";
+    public static String pathAtenciones = "archivos/atenciones.ser";
     
     public static String pathFXMLClientes = "Clientes/clientes";
     public static String pathFXMLEmpleados = "Empleados/empleados";

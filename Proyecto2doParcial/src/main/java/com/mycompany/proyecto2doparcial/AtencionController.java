@@ -4,30 +4,51 @@
  */
 package com.mycompany.proyecto2doparcial;
 
+import clases.Atencion;
+import clases.Cita;
+import clases.Servicio;
+import clases.personas.Empleado;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
  * @author Angello Bravo
  */
-public class AtencionController {
-    @FXML
-    private void cambiarRegistrar() throws IOException{
-        App.setRoot("registrarAtencion");
-    }
+public class AtencionController implements Initializable{
     
     @FXML
-    private void cambiarConsultar() throws IOException{
-        App.setRoot("consultarAtencion");
+    private TableView<Atencion> tablaAtenciones;
+    @FXML
+    private TableColumn<Atencion, Servicio> colServicio;
+    @FXML
+    private TableColumn<Atencion, Cita> colCita;
+    @FXML
+    private TableColumn<Atencion, Integer> colDuracion;
+    @FXML
+    private TableColumn<Atencion, Empleado> colEmpleado;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        colServicio.setCellValueFactory(new PropertyValueFactory<>("servicio"));
+        colCita.setCellValueFactory(new PropertyValueFactory<>("cita"));
+        colDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+        colEmpleado.setCellValueFactory(new PropertyValueFactory<>("emp"));
+        
+        tablaAtenciones.getItems().setAll(Atencion.cargarAtenciones(App.pathAtenciones));
     }
+    
+    
     
     @FXML
     private void regresar() throws IOException{
-        App.setRoot("atenciones");
-    }
-    @FXML
-    private void cambiarMain() throws IOException{
         App.setRoot("main");
     }
+
 }

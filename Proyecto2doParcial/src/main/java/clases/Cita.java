@@ -6,10 +6,13 @@ package clases;
 
 import clases.personas.Cliente;
 import clases.personas.Empleado;
+import com.mycompany.proyecto2doparcial.App;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -132,6 +135,22 @@ public class Cita implements Serializable{
      
         
         return listaCitas;
+    }
+    
+    public static void eliminarCita(Cita c){
+        ArrayList<Cita> lista = cargarCitas(App.pathCitas);
+        if(lista.contains(c)){
+            lista.remove(c);
+        }
+        
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathCitas))){
+            out.writeObject(lista);
+            out.flush();
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
     }
     
     

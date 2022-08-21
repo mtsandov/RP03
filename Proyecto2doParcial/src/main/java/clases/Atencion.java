@@ -5,13 +5,18 @@
 package clases;
 
 import clases.personas.Empleado;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Angello Bravo
  */
-public class Atencion {
+public class Atencion implements Serializable{
     //Atributos
     private Servicio servicio;
     private Cita cita;
@@ -66,6 +71,25 @@ public class Atencion {
     @Override
     public String toString(){
         return getCita().getCliente().getCedula() + " - " + getCita().getCliente().getNombre() + " - " + getDuracion() + " min - " + getServicio().getTipo() + " | Empleado: " +  getEmp().getNombre();
+    }
+    
+    public static ArrayList<Atencion> cargarAtenciones(String ruta){
+        ArrayList<Atencion> lista = new ArrayList<>();
+        
+        try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(ruta))){
+            lista = (ArrayList<Atencion>) input.readObject();
+        }
+        catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
+        return lista;
     }
     
     

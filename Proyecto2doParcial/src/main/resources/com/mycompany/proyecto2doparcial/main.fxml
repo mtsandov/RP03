@@ -19,13 +19,13 @@
       </Label>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btServicios" mnemonicParsing="false" onAction="#cambiarServicios" text="Servicios" />
-            <Button fx:id="btEmpleados" mnemonicParsing="false" onAction="#cambiarEmpleados" text="Empleados" />
-            <Button fx:id="btClientes" mnemonicParsing="false" onAction="#cambiarClientes" text="Clientes" />
-            <Button fx:id="btCitas" mnemonicParsing="false" onAction="#cambiarCitas" text="Citas" />
-            <Button fx:id="btAtenciones" mnemonicParsing="false" onAction="#cambiarAtenciones" text="Atenciones" />
+            <Button fx:id="btServicios" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarServicios" text="Servicios" />
+            <Button fx:id="btEmpleados" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarEmpleados" text="Empleados" />
+            <Button fx:id="btClientes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarClientes" text="Clientes" />
+            <Button fx:id="btCitas" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarCitas" text="Citas" />
+            <Button fx:id="btAtenciones" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarAtenciones" text="Atenciones" />
          </children>
          <padding>
             <Insets right="20.0" />

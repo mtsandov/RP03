@@ -7,8 +7,11 @@ package com.mycompany.proyecto2doparcial;
 import clases.Atencion;
 import clases.Cita;
 import clases.personas.Empleado;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
@@ -61,6 +64,18 @@ public class RegistrarAtencionController {
         //Falta registrar las atenciones
         Atencion t = new Atencion(citaParaAtencion.getServicio(),Integer.valueOf(txtDuracion.getText()),(Empleado) cbEmpleados.getValue(), citaParaAtencion);
         
+        //Registrara la atencion en una seraliazacion
+        ArrayList<Atencion> lista = Atencion.cargarAtenciones(App.pathAtenciones);
+        lista.add(t);
+        
+        //Serializacion
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathAtenciones))){
+            out.writeObject(lista);
+            out.flush();
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
         ct.llenarEspacios(t);
         
         App.changeRoot(root);

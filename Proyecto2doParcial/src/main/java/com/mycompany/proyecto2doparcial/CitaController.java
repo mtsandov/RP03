@@ -80,7 +80,7 @@ public class CitaController implements Initializable{
     
     @FXML
     private void cambiarConsultar() throws IOException{
-        App.setRoot("consultarCitas");
+        App.setRoot("Actividad/consultarActividades");
     }
     
     

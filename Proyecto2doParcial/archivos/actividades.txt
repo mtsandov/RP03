@@ -1,0 +1,4 @@
+datos1;1111111111;Paul Mera;26876543;xd@gmail.com;0:0:38;2022-08-11;Bingo;0;20
+datos1;1111111111;Paul Mera;26876543;xd@gmail.com;0:0:49;2022-08-18;Bingo;5;20
+datos1;1111111111;Paul Mera;26876543;xd@gmail.com;0:0:42;2022-08-18;Bingo;0;20
+datos1;1111111111;Paul Mera;26876543;xd@gmail.com;0:0:40;2022-08-04;Bingo;1;20
