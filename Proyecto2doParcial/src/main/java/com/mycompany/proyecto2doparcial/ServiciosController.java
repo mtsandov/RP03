@@ -50,19 +50,7 @@ public class ServiciosController implements Initializable{
     //Metodos
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lista = FXCollections.observableArrayList();
-        ArrayList<Servicio> listaServicio = Servicio.cargarServicios(App.pathServicios);
-        for(Servicio s: listaServicio){
-            lista.add(s);
-        }
-        
-        //Crea la Tabla
-        colServicios.setCellValueFactory(new PropertyValueFactory<Servicio, String>("tipo"));
-        colDuracion.setCellValueFactory(new PropertyValueFactory<Servicio, Float>("duracion"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<Servicio,Float>("precio"));
-        colEstado.setCellValueFactory(new PropertyValueFactory<Servicio,Boolean>("estado"));
-//        
-        tablaServicios.setItems(lista);
+        llenarTableView();
     }
 
     @FXML
@@ -104,16 +92,35 @@ public class ServiciosController implements Initializable{
         if(bt.get() == ButtonType.OK){
             lista.remove(s);
             
-            try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathServicios))){
-                out.writeObject(lista);
-                out.flush();
+            Servicio.serializarServicios(lista);
                 
-                Alert alerta1 = new Alert(Alert.AlertType.INFORMATION);
-                alerta1.setContentText("Se ha eliminado correctamente");
-                alerta1.showAndWait();
-            }
+            Alert alerta1 = new Alert(Alert.AlertType.INFORMATION);
+            alerta1.setContentText("Se ha eliminado correctamente");
+            alerta1.showAndWait();
             
+            
+            llenarTableView();
             
         }
+    }
+    
+    @FXML
+    private void llenarTableView(){
+        
+        tablaServicios.getItems().clear();
+        
+        lista = FXCollections.observableArrayList();
+        ArrayList<Servicio> listaServicio = Servicio.cargarServicios(App.pathServicios);
+        for(Servicio s: listaServicio){
+            lista.add(s);
+        }
+        
+        //Crea la Tabla
+        colServicios.setCellValueFactory(new PropertyValueFactory<Servicio, String>("tipo"));
+        colDuracion.setCellValueFactory(new PropertyValueFactory<Servicio, Float>("duracion"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<Servicio,Float>("precio"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<Servicio,Boolean>("estado"));
+//        
+        tablaServicios.setItems(lista);
     }
 }

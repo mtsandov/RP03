@@ -4,11 +4,13 @@
  */
 package clases;
 
-import clases.personas.Persona;
+import com.mycompany.proyecto2doparcial.App;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,8 +49,11 @@ public class Servicio implements Serializable{
         return precio;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public String isEstado() {
+        if(estado){
+            return "Activo";
+        }
+        return "Inactivo";
     }
     
     //Setters
@@ -93,6 +98,18 @@ public class Servicio implements Serializable{
     @Override
     public String toString(){
         return this.getTipo();
+    }
+    
+    public static void serializarServicios(ArrayList<Servicio> lista){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathServicios))){
+        //Serializacion
+            out.writeObject(lista);
+            out.flush();
+            
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
     
     public static ArrayList<Servicio> cargarServicios(String ruta){

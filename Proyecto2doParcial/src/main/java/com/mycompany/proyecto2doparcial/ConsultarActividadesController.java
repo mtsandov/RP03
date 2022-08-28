@@ -9,11 +9,13 @@ import clases.personas.Cliente;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
@@ -38,6 +40,8 @@ public class ConsultarActividadesController implements Initializable{
     private TableColumn<Actividad, Integer> colFallas;
     @FXML
     private TableColumn<Actividad, String> colDuracion;
+    @FXML
+    private TextField txtFiltrar;
     
     
     @Override
@@ -50,6 +54,26 @@ public class ConsultarActividadesController implements Initializable{
         colDuracion.setCellValueFactory(new PropertyValueFactory<>("tiempo"));
         
         tablaActividades.getItems().setAll(Actividad.cargarActividades());
+    }
+    
+    @FXML
+    private void filtrar() throws IOException{
+        tablaActividades.getItems().clear();
+        String cedula = txtFiltrar.getText();
+        
+        ArrayList<Actividad> lista = Actividad.cargarActividades();
+        ArrayList<Actividad> listaFiltrada = new ArrayList<>();
+        
+        for(Actividad at: lista){
+            if(at.getCl().getCedula().equals(cedula)){
+                listaFiltrada.add(at);
+            }
+        }
+        
+        
+        tablaActividades.getItems().setAll(listaFiltrada);
+        
+        
     }
     
     @FXML

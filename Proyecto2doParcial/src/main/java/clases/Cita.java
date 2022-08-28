@@ -64,8 +64,11 @@ public class Cita implements Serializable{
         return hora;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public String isEstado() {
+        if(estado){
+            return "Pendiente";
+        }
+        return "Cerrado";
     }
     
     
@@ -116,6 +119,24 @@ public class Cita implements Serializable{
             return false;
         }
         return true;
+    }
+    
+    public static void serializarCita(ArrayList<Cita> lista){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathCitas))){
+            //Serializacion
+            out.writeObject(lista);
+            out.flush();
+
+                
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Archivo no Encontrado");
+        }
+        
+        
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
     
     public static ArrayList<Cita> cargarCitas(String ruta){

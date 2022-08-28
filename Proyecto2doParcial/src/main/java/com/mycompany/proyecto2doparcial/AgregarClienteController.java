@@ -5,9 +5,7 @@
 package com.mycompany.proyecto2doparcial;
 
 import clases.personas.Cliente;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,27 +47,55 @@ public class AgregarClienteController implements Initializable, Serializable{
     @FXML
     private void guardarCliente(){
         ArrayList<Cliente> listaClientes = Cliente.cargarClientes(App.pathClientes);
-        Cliente cl = new Cliente(txtDatos.getText(), txtCedula.getText(), txtNombre.getText(), txtTelef.getText(), txtEmail.getText());
-        listaClientes.add(cl);
         
-        //Serializacion
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathClientes))){
-            out.writeObject(listaClientes);
-            out.flush();
+        try{
             
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Information Dialog");
-            alerta.setHeaderText("Resultado de la operación");
-            alerta.setContentText("Persona: " + txtNombre.getText() + " agregada exitosamente");
-            alerta.showAndWait();
+            if(txtDatos.getText().equals("")){
+                txtDatos.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtCedula.getText().equals("")){
+                txtCedula.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtNombre.getText().equals("")){
+                txtNombre.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtTelef.getText().equals("")){
+                txtTelef.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtEmail.getText().equals("")){
+                txtEmail.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
             
-            App.setRoot(App.pathFXMLClientes);
+            if(!txtDatos.getText().equals("") && !txtCedula.getText().equals("") && !txtNombre.getText().equals("") && !txtTelef.getText().equals("") && !txtEmail.getText().equals("")){
+                Cliente cl = new Cliente(txtDatos.getText(), txtCedula.getText(), txtNombre.getText(), txtTelef.getText(), txtEmail.getText());
+                listaClientes.add(cl);
+
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Information Dialog");
+                alerta.setHeaderText("Resultado de la operación");
+                alerta.setContentText("Persona: " + txtNombre.getText() + " agregada exitosamente");
+                alerta.showAndWait();
+                
+                Cliente.serializarCliente(listaClientes);
+                App.setRoot(App.pathFXMLClientes);
+            }
+            
+            
             
         }
+        
         catch(IOException e){
-            //System.out.println(e.getMessage());
             System.out.println(e.getMessage());
         }
+        
+        catch(Exception e){
+            System.out.println("No se pudo agregar el cliente");
+        }
+        
+        finally{
+            Cliente.serializarCliente(listaClientes);
+        }
+        
     }
     
 }

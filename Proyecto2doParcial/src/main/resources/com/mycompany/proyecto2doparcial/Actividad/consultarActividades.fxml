@@ -37,8 +37,8 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Buscar" />
+                  <TextField fx:id="txtFiltrar" promptText="cedula" />
+                  <Button mnemonicParsing="false" onAction="#filtrar" text="Buscar" />
                </children>
             </HBox>
          </children>

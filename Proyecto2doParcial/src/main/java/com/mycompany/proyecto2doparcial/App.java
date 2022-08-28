@@ -31,8 +31,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("main"), 640, 480);
+        //scene.getStylesheets().add(App.class.getResource("css/Styles.css").toExternalForm());
+        
         stage.setScene(scene);
-        stage.setTitle("Sistema");
+        stage.setTitle("Sistema Terapeutico ESPOL");
         stage.setMinHeight(600);
         stage.setMinWidth(600);
         stage.setMaxHeight(600);

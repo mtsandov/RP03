@@ -4,10 +4,13 @@
  */
 package clases.personas;
 
+import com.mycompany.proyecto2doparcial.App;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -50,6 +53,17 @@ public class Cliente extends Persona implements Serializable{
         return super.equals(obj); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
+    
+    public static void serializarCliente(ArrayList<Cliente> lista){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathClientes))){
+            out.writeObject(lista);
+            out.flush();    
+        }
+        catch(IOException e){
+            //System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
     
     //Metodo que cargara los datos de los archivos.
     public static ArrayList<Cliente> cargarClientes(String ruta){

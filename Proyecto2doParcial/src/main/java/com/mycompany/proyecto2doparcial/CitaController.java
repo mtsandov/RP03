@@ -1,6 +1,7 @@
 package com.mycompany.proyecto2doparcial;
 
 
+import clases.Atencion;
 import clases.Cita;
 import clases.Servicio;
 import clases.personas.Cliente;
@@ -9,12 +10,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
@@ -41,6 +48,10 @@ public class CitaController implements Initializable{
     private TableColumn<Cita, LocalDate> colFecha;
     @FXML
     private TableColumn<Cita, LocalTime> colHora;
+    @FXML
+    private TableColumn<Cita, Boolean> colEstado;
+    @FXML
+    private TextField txtFiltrar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,6 +60,7 @@ public class CitaController implements Initializable{
         colServicio.setCellValueFactory(new PropertyValueFactory<>("servicio"));
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         
         tablaCitas.getItems().setAll(Cita.cargarCitas(App.pathCitas));
     }
@@ -56,16 +68,80 @@ public class CitaController implements Initializable{
     //Cambiara a la ventana para registrar la atencion de la cita seleccionada.-
     @FXML
     private void registrarAtencion() throws IOException{
+        
         Cita c = (Cita)tablaCitas.getSelectionModel().getSelectedItem();
-        FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("Citas/registrarAtencion.fxml"));
-        RegistrarAtencionController ct = new RegistrarAtencionController();
         
-        RegistrarAtencionController.citaParaAtencion = c;
-        fxmlloader.setController(ct);
-        BorderPane root = (BorderPane) fxmlloader.load();
+        if(c.isEstado().equals("Pendiente")){
+            FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("Citas/registrarAtencion.fxml"));
+            RegistrarAtencionController ct = new RegistrarAtencionController();
+
+            RegistrarAtencionController.citaParaAtencion = c;
+            fxmlloader.setController(ct);
+            BorderPane root = (BorderPane) fxmlloader.load();
+
+            ct.llenarCampos(c);
+            App.changeRoot(root);
+        }
         
-        ct.llenarCampos(c);
-        App.changeRoot(root);
+        else{
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setContentText("No se puede generar una Atencion de una cita ya cerrada");
+            alerta.showAndWait();
+        }
+    }
+    
+    @FXML
+    private void filtrar() throws IOException{
+        tablaCitas.getItems().clear();
+        String cedula = txtFiltrar.getText();
+        ArrayList<Cita> lista = Cita.cargarCitas(App.pathCitas);
+        ArrayList<Cita> listaFiltrada = new ArrayList<>();
+        for(Cita c: lista){
+            String fecha = c.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            if(c.getCliente().getCedula().equals(cedula)){
+                listaFiltrada.add(c);
+            }
+            else if(fecha.equals(cedula)){
+                listaFiltrada.add(c);
+            }
+            
+        }
+        Cita.serializarCita(lista);
+        tablaCitas.getItems().setAll(listaFiltrada);
+    }
+    
+    @FXML
+    private void eliminarCita() throws IOException{
+        ArrayList<Cita> lista = Cita.cargarCitas(App.pathCitas);
+        Cita c = (Cita)tablaCitas.getSelectionModel().getSelectedItem();
+        
+        
+        if(!c.isEstado().equals("Pendiente")){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("La cita no se puede eliminar, debido a que ya fue llevada a cabo");
+            a.showAndWait();
+        }
+        
+        else{
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setContentText("Seguro que deseas eliminar");
+            Optional <ButtonType> bt = alerta.showAndWait();
+        
+            if(bt.get() == ButtonType.OK){
+                lista.remove(c);
+
+                Cita.serializarCita(lista);
+
+                Alert alerta1 = new Alert(Alert.AlertType.INFORMATION);
+                alerta1.setContentText("Se ha eliminado correctamente");
+                alerta1.showAndWait();
+
+                tablaCitas.getItems().clear();
+                tablaCitas.getItems().setAll(lista);
+
+            }
+        
+        }
     }
     
     @FXML

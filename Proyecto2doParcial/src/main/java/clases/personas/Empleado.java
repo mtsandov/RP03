@@ -4,13 +4,13 @@
  */
 package clases.personas;
 
-import clases.Servicio;
-import java.io.BufferedReader;
+import com.mycompany.proyecto2doparcial.App;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -30,8 +30,11 @@ public class Empleado extends Persona {
     }
     
     //Getters
-    public boolean isEstado() {
-        return estado;
+    public String isEstado() {
+        if(estado){
+            return "Activo";
+        }
+        return "Inactivo";
     }
     
     //Setters
@@ -43,11 +46,19 @@ public class Empleado extends Persona {
     
     @Override
     public String toString(){
-        String info = "";
-        if(isEstado()){
-            info = super.toString();
+        return this.getNombre();
+    }
+    
+    public static void serializarEmpleados(ArrayList<Empleado> lista){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathEmpleados))){
+            out.writeObject(lista);
+            out.flush();
+
         }
-        return info;
+        catch(IOException e){
+            //System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
+        }
     }
     
     //Cargar arraylist de empleados

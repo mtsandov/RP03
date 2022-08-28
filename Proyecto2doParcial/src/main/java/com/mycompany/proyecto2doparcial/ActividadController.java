@@ -15,8 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -85,7 +83,7 @@ public class ActividadController implements Initializable{
         
     }
     
-    //Metodo que obtendra los nodos del grid pane y agregara los valores aleatorios a los botones
+    //Metodo que obtendra los nodos del grid pane y agregara los valores aleatorios a los botones junto con el evento correspondiente
     @FXML
    private void getChildrenFromGridPane(){
        int contador = 0;
@@ -149,8 +147,13 @@ public class ActividadController implements Initializable{
                     alerta.setHeaderText("Felicitaciones");
                     alerta.setContentText("Haz completado la actividad en un tiempo de: " + lbTiempo.getText());
                     alerta.showAndWait();
+                    
+                    ArrayList<Cita> lista = Cita.cargarCitas(App.pathCitas);
 
-                    Cita.eliminarCita(RegistrarAtencionController.citaParaAtencion);
+                    int index = lista.indexOf(RegistrarAtencionController.citaParaAtencion);
+                    lista.get(index).setEstado(false);
+                    Cita.serializarCita(lista);
+                        
 
                     try{
                         App.setRoot(App.pathFXMLCitas);
@@ -163,7 +166,6 @@ public class ActividadController implements Initializable{
        }
    }
    
-    
     //Clase interna que creara un hilo para el cronometro
     private class Reloj extends Thread{
         @FXML

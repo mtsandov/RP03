@@ -8,10 +8,7 @@ import clases.Cita;
 import clases.Servicio;
 import clases.personas.Cliente;
 import clases.personas.Empleado;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -61,38 +58,34 @@ public class AgregarCitaController implements Initializable{
     //Metodo agregarCita\
     @FXML
     private void guardarCita(){
+        
         ArrayList<Cita> listaCitas = Cita.cargarCitas(App.pathCitas);
-        String[] tiempo = txtHora.getText().split(":");
-        Cita cita = new Cita(dpFecha.getValue(),LocalTime.of(Integer.parseInt(tiempo[0]), Integer.parseInt(tiempo[1])),(Cliente)cbCliente.getValue(), (Empleado)cbEmpleado.getValue(), (Servicio)cbTerapia.getValue());
-            
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathCitas))){
+        Cita cita;
+        try{
+            String[] tiempo = txtHora.getText().split(":");
+            cita = new Cita(dpFecha.getValue(),LocalTime.of(Integer.parseInt(tiempo[0]), Integer.parseInt(tiempo[1])),(Cliente)cbCliente.getValue(), (Empleado)cbEmpleado.getValue(), (Servicio)cbTerapia.getValue());
             //Comprobacion que no haya una cita en la misma fecha y hora.
             if(listaCitas.contains(cita)){
                 throw new Exception();
             }
-            
-            
             else{
                 listaCitas.add(cita);
-                //Serializacion
-                out.writeObject(listaCitas);
-                out.flush();
-
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                 alerta.setTitle("Information Dialog");
                 alerta.setHeaderText("Resultado de la operación");
                 alerta.setContentText("Cita agregada exitosamente");
                 alerta.showAndWait();
+                Cita.serializarCita(listaCitas);
 
                 App.setRoot(App.pathFXMLCitas);
             }
         }
-        catch(FileNotFoundException e){
-            System.out.println("Archivo no Encontrado");
+        
+        catch(NumberFormatException e){
+            System.out.println("Error al registrar la cita");
+            txtHora.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
         }
-        catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+        
         catch(Exception e){
             System.out.println(e.getMessage());
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -100,5 +93,9 @@ public class AgregarCitaController implements Initializable{
             alerta.setContentText("Error al registrar la nueva Cita");
             alerta.showAndWait();
         }
+        finally{
+            Cita.serializarCita(listaCitas);
+        }
+        
     }
 }

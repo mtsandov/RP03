@@ -29,6 +29,7 @@
             <Button mnemonicParsing="false" onAction="#cambiarAgregar" text="Agregar" />
             <Button mnemonicParsing="false" onAction="#registrarAtencion" text="Registrar Atencion" />
             <Button mnemonicParsing="false" onAction="#cambiarConsultar" text="Consultar Actividad" />
+            <Button mnemonicParsing="false" onAction="#eliminarCita" text="Eliminar" />
          </children>
       </HBox>
    </bottom>
@@ -38,17 +39,18 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Label text="Cliente:" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Buscar" />
+                  <TextField fx:id="txtFiltrar" promptText="cedula o dia/mes/año" />
+                  <Button mnemonicParsing="false" onAction="#filtrar" text="Buscar" />
                </children>
             </HBox>
             <TableView fx:id="tablaCitas" prefHeight="200.0" prefWidth="200.0">
               <columns>
                 <TableColumn fx:id="colNombre" prefWidth="100.0" text="Nombre" />
                 <TableColumn fx:id="colEmpleado" prefWidth="100.0" text="Terapista" />
-                  <TableColumn fx:id="colServicio" prefWidth="200.0" text="Servicio" />
-                  <TableColumn fx:id="colFecha" prefWidth="75.0" text="Fecha" />
-                  <TableColumn fx:id="colHora" prefWidth="75.0" text="Hora" />
+                  <TableColumn fx:id="colServicio" prefWidth="151.99998474121094" text="Servicio" />
+                  <TableColumn fx:id="colFecha" prefWidth="87.333251953125" text="Fecha" />
+                  <TableColumn fx:id="colHora" prefWidth="62.666748046875" text="Hora" />
+                  <TableColumn fx:id="colEstado" prefWidth="95.99996948242188" text="Estado" />
               </columns>
             </TableView>
          </children>

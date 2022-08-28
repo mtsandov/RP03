@@ -51,20 +51,7 @@ public class EmpleadoController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lista = FXCollections.observableArrayList();
-        ArrayList<Empleado> cargaEmpleados = Empleado.cargarEmpleados(App.pathEmpleados);
-        for(Empleado em:cargaEmpleados){
-            lista.add(em);
-        }
-        
-        //Crear Tabla
-        colEstado.setCellValueFactory(new PropertyValueFactory<Empleado, Boolean>("estado"));
-        colCedula.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cedula"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<Empleado, String>("nombre"));
-        colTelef.setCellValueFactory(new PropertyValueFactory<Empleado, String>("telef"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<Empleado, String>("email"));
-        
-        tablaEmpleados.setItems(lista);
+        llenarTableView();
         
     }
     
@@ -122,9 +109,31 @@ public class EmpleadoController implements Initializable{
             alerta1.setContentText("Se ha eliminado correctamente");
             alerta1.showAndWait();
             
+            llenarTableView();
+            
         }
         
     }
+    @FXML
+    private void llenarTableView(){
+        
+        tablaEmpleados.getItems().clear();
+        
+        lista = FXCollections.observableArrayList();
+        ArrayList<Empleado> cargaEmpleados = Empleado.cargarEmpleados(App.pathEmpleados);
+        for(Empleado em:cargaEmpleados){
+            lista.add(em);
+        }
+        
+        //Crear Tabla
+        colEstado.setCellValueFactory(new PropertyValueFactory<Empleado, Boolean>("estado"));
+        colCedula.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cedula"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<Empleado, String>("nombre"));
+        colTelef.setCellValueFactory(new PropertyValueFactory<Empleado, String>("telef"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<Empleado, String>("email"));
+        
+        tablaEmpleados.setItems(lista);
+    } 
     
     
 }

@@ -46,26 +46,44 @@ public class AgregarEmpleadoController implements Initializable{
     @FXML
     private void guardarEmpleado(){
         ArrayList<Empleado> listaEmpleados = Empleado.cargarEmpleados(App.pathEmpleados);
-        Empleado emp = new Empleado(true, txtCedula.getText(), txtNombre.getText(), txtTelef.getText(), txtEmail.getText());
-        listaEmpleados.add(emp);
         
-        //Serializacion
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathEmpleados))){
-            out.writeObject(listaEmpleados);
-            out.flush();
+        try{
             
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Information Dialog");
-            alerta.setHeaderText("Resultado de la operación");
-            alerta.setContentText("Persona: " + txtNombre.getText() + " agregada exitosamente");
-            alerta.showAndWait();
+            if(txtCedula.getText().equals("")){
+                txtCedula.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtNombre.getText().equals("")){
+                txtNombre.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtTelef.getText().equals("")){
+                txtTelef.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtEmail.getText().equals("")){
+                txtEmail.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
             
-            App.setRoot(App.pathFXMLEmpleados);
+            if(!txtCedula.getText().equals("") && !txtNombre.getText().equals("") && !txtTelef.getText().equals("") && !txtEmail.getText().equals("")){
             
+                Empleado emp = new Empleado(true, txtCedula.getText(), txtNombre.getText(), txtTelef.getText(), txtEmail.getText());
+                listaEmpleados.add(emp);
+
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Information Dialog");
+                alerta.setHeaderText("Resultado de la operación");
+                alerta.setContentText("Persona: " + txtNombre.getText() + " agregada exitosamente");
+                alerta.showAndWait();
+                
+                Empleado.serializarEmpleados(listaEmpleados);
+                App.setRoot(App.pathFXMLEmpleados);
+            }
         }
+        
         catch(IOException e){
-            //System.out.println(e.getMessage());
             System.out.println(e.getMessage());
+        }
+        
+        finally{
+            Empleado.serializarEmpleados(listaEmpleados);
         }
     }
 }

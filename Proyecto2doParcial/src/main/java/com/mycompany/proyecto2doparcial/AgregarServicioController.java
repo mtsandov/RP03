@@ -44,32 +44,48 @@ public class AgregarServicioController implements Initializable, Serializable{
     @FXML
     private void guardarServicio(){
         ArrayList<Servicio> listaServicios = Servicio.cargarServicios(App.pathServicios);
-        Servicio ser = new Servicio(txtTipo.getText(), Float.parseFloat(txtDuracion.getText()), Float.parseFloat(txtPrecio.getText()), true);
-        listaServicios.add(ser);
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.pathServicios))){
-        //Serializacion
-            out.writeObject(listaServicios);
-            out.flush();
+        
+        try{
+            if(txtTipo.getText().equals("")){
+                txtTipo.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtDuracion.getText().equals("")){
+                txtDuracion.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
+            if(txtPrecio.getText().equals("")){
+                txtPrecio.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(255,0,0) , 5, 0.0 , 0 , 1 );");
+            }
             
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Information Dialog");
-            alerta.setHeaderText("Resultado de la operación");
-            alerta.setContentText("Servicio: " + txtTipo.getText() +  " agregada exitosamente");
-            alerta.showAndWait();
-            
-            App.setRoot(App.pathFXMLServicios);
-            
+            if(!txtTipo.getText().equals("") && !txtDuracion.getText().equals("") && !txtPrecio.getText().equals("")){
+        
+                Servicio ser = new Servicio(txtTipo.getText(), Float.parseFloat(txtDuracion.getText()), Float.parseFloat(txtPrecio.getText()), true);
+                listaServicios.add(ser);
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Information Dialog");
+                alerta.setHeaderText("Resultado de la operación");
+                alerta.setContentText("Servicio: " + txtTipo.getText() +  " agregada exitosamente");
+                alerta.showAndWait();
+                Servicio.serializarServicios(listaServicios);
+                
+                App.setRoot(App.pathFXMLServicios);
+            }
         }
-        catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-        catch(Exception e){
+        catch(NumberFormatException e){
             System.out.println(e.getMessage());
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("ERROR");
             alerta.setContentText("Error al registrar el nuevo servicio");
             alerta.showAndWait();
         }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            Servicio.serializarServicios(listaServicios);
+        }
+        
     }
     
 }
